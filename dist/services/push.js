@@ -27,12 +27,11 @@ exports.sendNotification = void 0;
 const PushAPI = __importStar(require("@pushprotocol/restapi"));
 const ethers = __importStar(require("ethers"));
 const constants_1 = require("../utils/constants");
-const key = constants_1.KEY; // channel private key
-const Pkey = `0x${key}`;
-const signer = new ethers.Wallet(Pkey);
 const sendNotification = async (pushInput) => {
+    const key = constants_1.KEY; // channel private key
+    const Pkey = `0x${key}`;
+    const signer = new ethers.Wallet(Pkey);
     try {
-        console.log(constants_1.KEY, "PK");
         const apiResponse = await PushAPI.payloads.sendNotification({
             signer,
             type: 3,

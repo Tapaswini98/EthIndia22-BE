@@ -1,14 +1,13 @@
 import * as PushAPI from "@pushprotocol/restapi";
 import * as ethers from "ethers";
-import { KEY, PUSH_CHANNEL_ADDRESS } from "../utils/constants";
 import { PushInput } from "../models/push_input";
+import { KEY, PUSH_CHANNEL_ADDRESS } from "../utils/constants";
 
-const key = KEY // channel private key
-const Pkey = `0x${key}`;
-const signer = new ethers.Wallet(Pkey);
 export const sendNotification = async (pushInput: PushInput) => {
+  const key = KEY // channel private key
+  const Pkey = `0x${key}`;
+  const signer = new ethers.Wallet(Pkey);
   try {
-    console.log(KEY, "PK");
     const apiResponse = await PushAPI.payloads.sendNotification({
       signer,
       type: 3, // target
