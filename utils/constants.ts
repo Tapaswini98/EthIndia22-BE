@@ -17,7 +17,7 @@ export const HTTPS_MODE_INTERVAL = process.env.HTTPS_MODE_INTERVAL ?? 5000;
 
 export const RECON_INTERVAL = process.env.RECON_INTERVAL ?? 6000;
 
-export const DEFAULT_LATEST_BLOCK_NUMBER_KEY = "ethereum_block_number_key";
+export const DEFAULT_LATEST_BLOCK_NUMBER_KEY = "polygon_block_number_key";
 
 export const DEFAULT_RECON_NETWORK_LATEST_BLOCK_NUMBER_KEY = "recon_ethereum_block_number_key";
 

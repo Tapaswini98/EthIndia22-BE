@@ -12,9 +12,9 @@ const main = async () => {
     logger.info("Started process");
     try {
         communitydao_contract_listener = new EventListener(NETWORK_HTTPS_URL, COMMUNITYDAO_CONTRACT_ABI as AbiItem[], COMMUNITYDAO_CONTRACT_ADDRESS);
-        contribution_contract_listener = new EventListener(NETWORK_HTTPS_URL, REVIEWER_ABI as AbiItem[], REVIEW_CONTRACT_ADDRESS);
+        // contribution_contract_listener = new EventListener(NETWORK_HTTPS_URL, REVIEWER_ABI as AbiItem[], REVIEW_CONTRACT_ADDRESS);
         communitydao_contract_listener.listenOnHttps(HTTPS_MODE_INTERVAL as number);
-        contribution_contract_listener.listenOnHttps(HTTPS_MODE_INTERVAL as number);
+        // contribution_contract_listener.listenOnHttps(HTTPS_MODE_INTERVAL as number);
     } catch (err) {
       logger.error(`NETWORK: ${NETWORK} - EVNT: Error in Main \n ${err}`);
     }

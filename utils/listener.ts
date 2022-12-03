@@ -75,16 +75,23 @@ export default class EventListener {
         if (this.event_service.web3) {
           let latestBlock = await this.event_service.web3.eth.getBlockNumber();
           let storedLatestBlock = await redis.getCurrentBlock(NETWORK_LATEST_BLOCK_NUMBER_KEY);
+          console.log(storedLatestBlock,"storedLatestBlock");
+          
           latestBlock -= 7; // Gives a confirmation of 7 blocks
+          console.log("latestBlock1",latestBlock);
           if (storedLatestBlock && storedLatestBlock < latestBlock) {
             let events = await this.event_service.sync(storedLatestBlock, latestBlock);
+            console.log(events,"events");
+            
             events.forEach(async (event) => {
               await transform(event, this.contractABI, this.event_service.web3)
             })
           }
+          console.log("latestBlock",latestBlock);
+          
           redis.setCurrentBlock(NETWORK_LATEST_BLOCK_NUMBER_KEY, latestBlock);
         }
-      }, interval);
+      }, 10000);
     } catch (err) {
       logger.error(`NETWORK: ${NETWORK} | SERVICE: EventListener.listenOnHttps() | ERR: ${err}`);
       process.exit(1);
