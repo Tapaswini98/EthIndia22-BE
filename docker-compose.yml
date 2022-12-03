@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - $HOME/redis/data/db:/data
+    networks:
+      - default
+  listener:
+    image: paperr-listener:latest
+    build: .
+    depends_on:
+      - redis
+    environment:
+      LOG_LEVEL: info
+      KAFKA_SERVERURL: kafka:9092
+      REDIS_HOSTNAME: "redis"
+    networks:
+      - default
+

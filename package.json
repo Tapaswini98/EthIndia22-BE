@@ -1,0 +1,50 @@
+{
+  "name": "paperr-listener",
+  "description": "listener",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --pretty --transpile-only index.ts | bunyan",
+    "build": "tsc -p .",
+    "start": "mkdir -p ./logs/ && node ./dist/index.js | bunyan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TournamentDAO/paperr-listener.git"
+  },
+  "keywords": [
+    "tyescript",
+    "node",
+    "web3",
+    "ethereum-virtual-machine",
+    "web3-events"
+  ],
+  "author": "Community Gaming",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/TournamentDAO/paperr-listener/issues"
+  },
+  "homepage": "https://github.com/TournamentDAO/paperr-listener#readme",
+  "dependencies": {
+    "@pushprotocol/restapi": "^0.2.2",
+    "bignumber.js": "^9.0.1",
+    "bunyan": "^1.8.15",
+    "dotenv": "^8.2.0",
+    "ethers": "^5.7.2",
+    "fs": "^0.0.1-security",
+    "kafkajs": "^1.15.0",
+    "redis": "^3.0.2",
+    "typescript": "^4.8.3",
+    "web3": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/bignumber.js": "^5.0.0",
+    "@types/bunyan": "^1.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/kafkajs": "^1.9.0",
+    "@types/node": "^16.10.3",
+    "@types/redis": "^2.8.28",
+    "@types/web3": "^1.2.2",
+    "ts-node-dev": "^1.1.1"
+  }
+}
