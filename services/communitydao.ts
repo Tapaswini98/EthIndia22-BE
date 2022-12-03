@@ -8,7 +8,7 @@ import { COMMUNITYDAO_CONTRACT_ABI, NETWORK, COMMUNITYDAO_CONTRACT_ADDRESS } fro
 
 dotenv.config();
 
-export default class TournamentService {
+export default class CommunityDaoService {
     web3: Web3;
     community_dao_contract: Contract;
 

@@ -7,18 +7,19 @@ import { EventValueType } from "../models/event_value_type";
 import { NETWORK } from "../utils/constants";
 import { EventStructure } from "../models/event_structure";
 import { sendNotification } from "./push";
+import CommunityDaoService from "./communitydao";
 
 
 
 export const transform = async (rawData: EventData, abi: AbiItem[], web3: Web3) => {
   let eventDetails;
-  if (rawData.event == 'TournamentIssued'){
-    eventDetails = await transformCommunityDaoIssuedEvent(rawData)
+  let communitydao_service = new CommunityDaoService(web3);
+  if (rawData.event == 'Voted'){
+    eventDetails = await communitydao_service.transformCommunityDaoIssuedEvent(rawData)
     console.log(eventDetails,"eventDetails");
-    
     sendNotification({
-      reciever: eventDetails.address,
-      notification_title: 'Title',
+      reciever: eventDetails.address as string,
+      notification_title: 'Voted',
       notification_body: 'Body',
       payload_title: '',
       payload_body: 'body',
