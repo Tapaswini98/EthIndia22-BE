@@ -12,6 +12,7 @@ import * as redis from "../services/redis";
 
 // Impport logger
 import logger from "../config/logger";
+import { transform } from "../services/transform";
 
 export default class EventListener {
   contractABI: AbiItem[];
@@ -51,16 +52,16 @@ export default class EventListener {
       if (storedLatestBlock && storedLatestBlock < latestBlock) {
       }
       this.event_service
-          .watch()
-          .on("data", async (event: EventData) => {
-            
-          })
-          .on("error", (err: Error) => {
-            throw err;
-          });
-        this.event_service.newBlock().on("data", async (block) => {
-          await redis.setCurrentBlock(NETWORK_LATEST_BLOCK_NUMBER_KEY, block.number);
+        .watch()
+        .on("data", async (event: EventData) => {
+
+        })
+        .on("error", (err: Error) => {
+          throw err;
         });
+      this.event_service.newBlock().on("data", async (block) => {
+        await redis.setCurrentBlock(NETWORK_LATEST_BLOCK_NUMBER_KEY, block.number);
+      });
     } catch (err) {
       logger.error(`NETWORK: ${NETWORK} | SERVICE: EventListener.listen() | ERR: ${err}`);
       process.exit(1);
@@ -77,8 +78,11 @@ export default class EventListener {
           latestBlock -= 7; // Gives a confirmation of 7 blocks
           if (storedLatestBlock && storedLatestBlock < latestBlock) {
             let events = await this.event_service.sync(storedLatestBlock, latestBlock);
+            events.forEach(async (event) => {
+              await transform(event, this.contractABI, this.event_service.web3)
+            })
           }
-          await redis.setCurrentBlock(NETWORK_LATEST_BLOCK_NUMBER_KEY, latestBlock);
+          redis.setCurrentBlock(NETWORK_LATEST_BLOCK_NUMBER_KEY, latestBlock);
         }
       }, interval);
     } catch (err) {
